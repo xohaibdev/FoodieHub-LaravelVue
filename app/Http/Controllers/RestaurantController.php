@@ -76,7 +76,7 @@ class RestaurantController extends Controller
 
             // Update restaurant
             $restaurant->update($validatedData);
-            $restaurant = RestaurantResource::collection($restaurant);
+            $restaurant = new RestaurantResource($restaurant);
             DB::commit();
 
             return $this->result(true, $restaurant, [], 'Restaurant updated successfully', 200);
