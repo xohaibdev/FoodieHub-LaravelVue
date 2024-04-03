@@ -17,13 +17,29 @@ class RestaurantSeeder extends Seeder
     public function run(): void
     {
         $faker = Faker::create();
+
+        $restuarents = [
+            'Pizza Palace',
+            'Burger Barn',
+            'Taco Town',
+            'Sushi Spot',
+            'Pasta Paradise',
+            'Salad Garden',
+            'Sandwich Shack',
+            'Soup Station',
+            'Wrap World',
+            'Quesadilla Corner'
+        ];
+
         DB::beginTransaction();
 
         try {
             // Create 10 restaurants
             for ($i = 1; $i <= 10; $i++) {
+                $restaurantName = $faker->unique()->randomElement($restuarents);
+
                 Restaurant::create([
-                    'name' => $faker->company,
+                    'name' => $restaurantName,
                     'address' => $faker->address,
                     'email' => $faker->unique()->safeEmail,
                     'webhook_endpoint' => 'http://example.com/webhook/' . $i,
