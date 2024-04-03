@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\ApiAuthController;
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\WebhookController;
+use App\Http\Controllers\SmsGatewayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +29,7 @@ Route::post('/admin/login', [ApiAuthController::class, 'login']);
 Route::get('/restaurants', [RestaurantController::class, 'index']);
 Route::get('/restaurants/{id}', [RestaurantController::class, 'show']);
 Route::post('/restaurants', [RestaurantController::class, 'store']);
-Route::put('/restaurants/{id}', [RestaurantController::class, 'update']);
+Route::post('/restaurants/{id}/update', [RestaurantController::class, 'update']);
 Route::delete('/restaurants/{id}', [RestaurantController::class, 'destroy']);
 
 // Webhook
