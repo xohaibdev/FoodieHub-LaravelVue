@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RestaurantUpdated;
 use Illuminate\Http\Request;
 use App\Models\Restaurant;
 use App\Http\Resources\RestaurantResource;
@@ -48,9 +49,16 @@ class RestaurantController extends Controller
             ]);
 
             // Create new restaurant
-            $restaurant = Restaurant::create($validatedData);
-            $restaurant = new RestaurantResource($restaurant);
+            $restaurantModal = Restaurant::create($validatedData);
+            $restaurant = new RestaurantResource($restaurantModal);
+
+
             DB::commit();
+
+            //restaurent created notification
+            event(new RestaurantUpdated($restaurantModal));
+
+
             return $this->result(true, $restaurant, [], 'Restaurant created successfully', 201);
         } catch (Exception $e) {
             DB::rollback();
@@ -72,12 +80,16 @@ class RestaurantController extends Controller
             // Find the restaurant
 
             $id = $this->hashDecode($hashed_id);
-            $restaurant = Restaurant::findOrFail($id);
+            $restaurantModel = Restaurant::findOrFail($id);
 
             // Update restaurant
-            $restaurant->update($validatedData);
-            $restaurant = new RestaurantResource($restaurant);
+            $restaurantModel->update($validatedData);
+            $restaurant = new RestaurantResource($restaurantModel);
             DB::commit();
+
+            //restaurent udpated notification
+            event(new RestaurantUpdated($restaurantModel));
+
 
             return $this->result(true, $restaurant, [], 'Restaurant updated successfully', 200);
         } catch (Exception $e) {
