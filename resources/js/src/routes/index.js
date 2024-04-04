@@ -1,28 +1,38 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+import RestaurantLayout from '../views/layouts/RestaurantLayout.vue';
+import List from '../views/restaurents/List.vue';
+import Add from '../views/restaurents/Add.vue';
+import Details from '../views/restaurents/Details.vue';
+import Login from '../views/auth/Login.vue';
 const routes = [
     {
-        path: "/",
-        component: () => import("../views/restaurents/List.vue"),
-        meta: { requiresAuth: true },
-        name:"restaurants-list"
+      path: '/',
+      component: RestaurantLayout,
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          component: List,
+          name: 'restaurants-list'
+        },
+        {
+          path: 'restaurants/add',
+          component: Add,
+          name: 'add-restaurant'
+        },
+        {
+          path: 'restaurants/view/:id',
+          component: Details,
+          props: true,
+          name: 'restaurant-details'
+        }
+      ]
     },
     {
-        path: "/restaurents/add",
-        component: () => import("../views/restaurents/Add.vue"),
-        meta: { requiresAuth: true }
-    },
-    {
-        path: "/restaurents/view/:id",
-        component: () => import("../views/restaurents/Details.vue"),
-        props: true,
-        meta: { requiresAuth: true }
-    },
-    {
-        path: "/login",
-        component: () => import("../views/auth/login.vue"),
-    },
-];
+      path: '/login',
+      component: Login
+    }
+  ];
 
 const router = createRouter({
     history: createWebHistory(),
