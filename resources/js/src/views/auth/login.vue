@@ -1,6 +1,6 @@
 <template>
     <div class="login-dark">
-        <form @submit.prevent="login">
+        <form @submit.prevent="handleLogin">
             <h2 class="sr-only">Login Form</h2>
             <div class="illustration">
                 <i class="icon ion-ios-locked-outline"></i>
@@ -39,6 +39,7 @@
 
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
     data() {
@@ -50,21 +51,21 @@ export default {
         };
     },
     methods: {
-        async login() {
+        ...mapActions("auth", ["login"]),
+        async handleLogin() {
             try {
-                const apiUrl = `${this.baseUrl}/api/admin/login`;
-                const response = await axios.post(apiUrl, {
+                const { success, error } = await this.login({
                     email: this.email,
                     password: this.password,
                 });
-                if (response.status === 200) {
+                if (success) {
                     this.email = "";
                     this.password = "";
-                    const token = response.data.data.token;
-                    localStorage.setItem("authToken", token);
+                } else {
+                    console.error("Login failed:", error);
                 }
             } catch (error) {
-                console.error("Error:", error.message);
+                console.error("Error:", error);
             }
         },
     },
