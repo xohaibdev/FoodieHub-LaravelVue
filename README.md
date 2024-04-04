@@ -10,7 +10,7 @@ Watch the demo video [here](#).
 
 ## API Documentation
 
-Explore the Postman API collections [here](https://galactic-robot-789598.postman.co/workspace/9a35e5a9-80f7-4e1b-a99d-65a68d9fd80a/collection/14911640-304b4706-bb37-4155-9ce4-14abb5891a35?action=share&creator=14911640).
+Explore the Postman API collections [here](https://elements.getpostman.com/redirect?entityId=14911640-304b4706-bb37-4155-9ce4-14abb5891a35&entityType=collection).
 
 ## Features
 
