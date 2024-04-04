@@ -37,8 +37,19 @@ const authModule = {
         throw error;
       }
     },
-    logout({ commit }) {
-      commit('LOGOUT');
+    async logout({ commit, state }) {
+        try {
+          const authToken = state.authToken;
+          await axios.post('/api/admin/logout', null, {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+          commit('LOGOUT');
+        } catch (error) {
+          console.error('Error logging out:', error);
+          throw error;
+        }
     },
   },
   getters: {

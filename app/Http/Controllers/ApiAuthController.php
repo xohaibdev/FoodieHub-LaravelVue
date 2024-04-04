@@ -33,4 +33,18 @@ class ApiAuthController extends Controller
             return $this->result(false, [], [], $e->getMessage(), 500);
         }
     }
+
+    public function logout(Request $request)
+    {
+        try {
+            $user = $request->user();
+            if ($user) {
+                $user->tokens()->delete();
+            }
+            Auth::logout();
+            return $this->result(true, [], [], 'Logged out successfully', 200);
+        } catch (Exception $e) {
+            return $this->result(false, [], [], $e->getMessage(), 500);
+        }
+    }
 }

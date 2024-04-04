@@ -24,6 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Authentication
 Route::post('/admin/login', [ApiAuthController::class, 'login']);
+Route::post('/admin/logout', [ApiAuthController::class, 'logout']);
+
 
 // Restaurant CRUD
 Route::get('/restaurants', [RestaurantController::class, 'index']);
