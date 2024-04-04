@@ -58,10 +58,8 @@ export default {
                     password: this.password,
                 });
                 if (response.status === 200) {
-                    console.log("Login successful");
                     this.email = "";
                     this.password = "";
-
                     const token = response.data.data.token;
                     localStorage.setItem("authToken", token);
                 }
