@@ -64,7 +64,7 @@
                     alt="Account"
                 />
             </div>
-            <div class="account-info-name">Monica G.</div>
+            <div class="account-info-name">Admin</div>
             <button class="account-info-more">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

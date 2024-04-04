@@ -1,7 +1,7 @@
 <template>
     <div class="app-content-header">
         <h1 class="app-content-headerText">{{ pageTitle }}</h1>
-        <button class="mode-switch" title="Switch Theme">
+        <button class="mode-switch" title="Switch Theme" v-if="showAddButton">
             <svg
                 class="moon"
                 fill="none"
@@ -18,6 +18,7 @@
             </svg>
         </button>
         <button
+            v-if="showAddButton"
             class="app-content-headerButton"
             @click="redirectToAddRestaurant"
         >
@@ -31,6 +32,11 @@ export default {
         return {
             pageTitle: "",
         };
+    },
+    computed: {
+        showAddButton() {
+            return this.$route.name === "restaurants-list";
+        },
     },
     watch: {
         $route(to) {

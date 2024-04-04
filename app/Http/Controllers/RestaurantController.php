@@ -17,7 +17,7 @@ class RestaurantController extends Controller
     public function index()
     {
         try {
-            $restaurants = RestaurantResource::collection(Restaurant::all());
+            $restaurants = RestaurantResource::collection(Restaurant::latest()->get());
             return $this->result(true, $restaurants, [], 'Restaurants list', 200);
         } catch (Exception $e) {
             return $this->result(false, [], ['error' => $e->getMessage()], 'Failed to retrieve restaurants', 500);
@@ -41,17 +41,18 @@ class RestaurantController extends Controller
     {
         DB::beginTransaction();
         try {
-            // Validate incoming request
             $validatedData = $request->validate([
                 'name' => 'required|string',
                 'address' => 'required|string',
                 'email' => 'required|email|unique:restaurants,email',
             ]);
 
+            $validatedData['webhook_endpoint'] = $request['webhook_endpoint'];
+
             // Create new restaurant
             $restaurantModal = Restaurant::create($validatedData);
-            $restaurant = new RestaurantResource($restaurantModal);
 
+            $restaurant = new RestaurantResource($restaurantModal);
 
             DB::commit();
 
