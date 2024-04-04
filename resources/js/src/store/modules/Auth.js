@@ -44,6 +44,7 @@ const authModule = {
   getters: {
     isLoggedIn: state => !!state.authToken,
     getUser: state => state.user,
+    getAuthToken: state => state.authToken,
   },
 };
 
