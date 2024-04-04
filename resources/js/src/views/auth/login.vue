@@ -63,7 +63,7 @@ export default {
                     this.password = "";
 
                     const token = response.data.data.token;
-                    localStorage.setItem("token", token);
+                    localStorage.setItem("authToken", token);
                 }
             } catch (error) {
                 console.error("Error:", error.message);
