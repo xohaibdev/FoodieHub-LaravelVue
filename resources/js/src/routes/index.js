@@ -4,7 +4,8 @@ const routes = [
     {
         path: "/",
         component: () => import("../views/restaurents/List.vue"),
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true },
+        name:"restaurants-list"
     },
     {
         path: "/restaurents/add",

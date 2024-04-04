@@ -51,18 +51,18 @@ export default {
         };
     },
     methods: {
-        ...mapActions("auth", ["login"]),
         async handleLogin() {
             try {
-                const { success, error } = await this.login({
+                const response = await this.$store.dispatch("login", {
                     email: this.email,
                     password: this.password,
                 });
-                if (success) {
+                if (response.success) {
                     this.email = "";
                     this.password = "";
+                    this.$router.push({ name: "restaurants-list" });
                 } else {
-                    console.error("Login failed:", error);
+                    console.error("Login failed:", response.error);
                 }
             } catch (error) {
                 console.error("Error:", error);

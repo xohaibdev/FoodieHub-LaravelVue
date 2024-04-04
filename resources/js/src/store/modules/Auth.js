@@ -30,6 +30,7 @@ const authModule = {
           const token = response.data.data.token;
           commit('SET_AUTH_TOKEN', token);
           commit('SET_USER', null);
+          return { success: true };
         }
       } catch (error) {
         console.error('Error:', error.message);
