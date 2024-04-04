@@ -286,6 +286,7 @@
                             </svg>
                         </button>
                     </div>
+                    <div class="product-cell actions">Actions</div>
                 </div>
                 <div
                     v-for="restaurant in restaurants"
@@ -308,6 +309,14 @@
                         <span class="cell-label">Webhook:</span
                         >{{ restaurant.webhook_endpoint }}
                     </div>
+                    <div class="product-cell actions">
+                        <button
+                            @click="deleteRestaurant(restaurant.hashed_id)"
+                            style="cursor: pointer"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -328,7 +337,16 @@ export default {
     data() {
         return {
             restaurants: [],
-            images: [image1,image2,image3,image4,image5,image6,image7,image8],
+            images: [
+                image1,
+                image2,
+                image3,
+                image4,
+                image5,
+                image6,
+                image7,
+                image8,
+            ],
         };
     },
     mounted() {
@@ -381,6 +399,20 @@ export default {
                 this.restaurants = response.data.data;
             } catch (error) {
                 console.error("Error fetching restaurants:", error);
+            }
+        },
+        async deleteRestaurant(restaurantId) {
+            try {
+                const authToken = this.$store.getters.getAuthToken;
+                const apiUrl = `/api/restaurants/${restaurantId}`;
+                await axios.delete(apiUrl, {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                });
+                this.fetchRestaurants();
+            } catch (error) {
+                console.error("Error deleting restaurant:", error);
             }
         },
     },
