@@ -21,6 +21,13 @@ Explore the Postman API collections [here](https://elements.getpostman.com/redir
 - Webhook system to notify external clients of restaurant updates
 - SMS gateway integration for sending notifications
 
+
+## Admin Credentials
+
+- email: admin@example.com
+- Password: Pa$$w0rd!
+
+
 ## Technology Stack
 
 - Laravel for the backend
