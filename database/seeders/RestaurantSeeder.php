@@ -24,11 +24,6 @@ class RestaurantSeeder extends Seeder
             'Taco Town',
             'Sushi Spot',
             'Pasta Paradise',
-            'Salad Garden',
-            'Sandwich Shack',
-            'Soup Station',
-            'Wrap World',
-            'Quesadilla Corner'
         ];
 
         DB::beginTransaction();

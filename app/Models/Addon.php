@@ -9,7 +9,7 @@ use Hashids\Hashids;
 
 class Addon extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'item_id'];
 
