@@ -6,7 +6,7 @@ The Restaurant Management System is a web application built to streamline the ma
 
 ## Project Demo
 
-Watch the demo video [here](#).
+Watch the demo video [here](https://www.loom.com/share/0a89e5347b7a40cf876ae89e3d36ec93?sid=45253a2b-701a-41c7-927e-8ba7188b9d90).
 
 ## API Documentation
 
