@@ -17,7 +17,20 @@
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
-        <button class="app-content-headerButton">Add Restaurant</button>
+        <button
+            v-if="showAddRestaurantButton"
+            class="app-content-headerButton"
+            @click="redirectToAddRestaurant"
+        >
+            Add Restaurant
+        </button>
+        <button
+            v-if="showAddMenuItemButton"
+            class="app-content-headerButton"
+            @click="redirectToAddRestaurantItem"
+        >
+            Add Menu Item
+        </button>
     </div>
 </template>
 
@@ -29,8 +42,14 @@ export default {
         };
     },
     computed: {
-        showAddButton() {
-            return this.$route.name === "restaurants-list";
+        showAddRestaurantButton() {
+            return (
+                this.$route.name === "restaurants-list" ||
+                this.$route.name === "restaurant-details"
+            );
+        },
+        showAddMenuItemButton() {
+            return this.$route.name === "restaurant-items-list";
         },
     },
     watch: {
@@ -44,6 +63,10 @@ export default {
     methods: {
         redirectToAddRestaurant() {
             this.$router.push({ name: "add-restaurant" });
+        },
+
+        redirectToAddRestaurantItem() {
+            this.$router.push({ name: "add-restaurant-items" });
         },
 
         updatePageTitle(route) {
@@ -62,6 +85,9 @@ export default {
                     break;
                 case "restaurant-items-addons-list":
                     this.pageTitle = "Restaurant Items Addons List";
+                    break;
+                case "add-restaurant-items":
+                    this.pageTitle = "Add Menu Item";
                     break;
                 default:
                     this.pageTitle = "";

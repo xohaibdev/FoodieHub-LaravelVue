@@ -153,7 +153,7 @@ import image8 from "../../assets/images/star-sky.jpg";
 export default {
     data() {
         return {
-            restaurants: [],
+            // restaurants: [],
             images: [
                 image1,
                 image2,
@@ -165,6 +165,11 @@ export default {
                 image8,
             ],
         };
+    },
+    computed: {
+        restaurants() {
+            return this.$store.getters.getRestaurants;
+        },
     },
     mounted() {
         this.fetchRestaurants();
@@ -206,14 +211,7 @@ export default {
         },
         async fetchRestaurants() {
             try {
-                const authToken = this.$store.getters.getAuthToken;
-                const apiUrl = "/api/restaurants";
-                const response = await axios.get(apiUrl, {
-                    headers: {
-                        Authorization: `Bearer ${authToken}`,
-                    },
-                });
-                this.restaurants = response.data.data;
+                await this.$store.dispatch("fetchAndSaveRestaurants");
             } catch (error) {
                 console.error("Error fetching restaurants:", error);
             }

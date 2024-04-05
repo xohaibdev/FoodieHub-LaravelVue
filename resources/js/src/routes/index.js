@@ -7,6 +7,8 @@ import Details from '../views/restaurents/Details.vue';
 
 import ItemsList from '../views/restaurents/ItemsList.vue';
 import AddonList from '../views/restaurents/AddonList.vue';
+import AddItem from '../views/restaurents/AddItem.vue';
+
 
 import Login from '../views/auth/Login.vue';
 const routes = [
@@ -36,6 +38,13 @@ const routes = [
             component: ItemsList,
             name: 'restaurant-items-list'
         },
+
+        {
+            path: 'restaurants/items/add',
+            component: AddItem,
+            name: 'add-restaurant-items'
+        },
+
         {
             path: 'restaurants/items/addons',
             component: AddonList,

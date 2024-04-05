@@ -9,6 +9,8 @@ use App\Http\Resources\ItemResource;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Traits\Helper as ApiResponseTrait;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Addon;
 
 class ItemController extends Controller
 {
@@ -24,7 +26,51 @@ class ItemController extends Controller
             return $this->result(false, [], ['error' => $e->getMessage()], 'Failed to retrieve items', 500);
         }
     }
+    public function store(Request $request)
+    {
+        DB::beginTransaction();
+        try {
 
+            // Validate incoming request data
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:255',
+                'price' => 'required|numeric|min:0',
+                'restaurant_id' => 'required',
+                'addons' => 'nullable|string',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            // Create a new item
+            $item = Item::create([
+                'name' => $request->input('name'),
+                'price' => $request->input('price'),
+                'restaurant_id' => $this->hashDecode($request->input('restaurant_id')),
+            ]);
+
+            // Split addons string into an array
+            $addons = explode(',', $request->input('addons'));
+
+            foreach ($addons as $addonName) {
+                $addonName = trim($addonName);
+
+                // Create a new addon associated with the item
+                $addon = Addon::create([
+                    'name' => $addonName,
+                    'item_id' => $item->id,
+                ]);
+            }
+
+            DB::commit();
+            // Return a success response
+            return $this->result(true, $item, [], 'Item added successfully', 200);
+        } catch (Exception $e) {
+            DB::rollback();
+            return $this->result(false, [], ['error' => $e->getMessage()], 'Failed to add menu item', 500);
+        }
+    }
     public function show($hashed_id)
     {
         try {

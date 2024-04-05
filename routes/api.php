@@ -39,10 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/restaurants/{id}/update', [RestaurantController::class, 'update']);
     Route::delete('/restaurants/{id}', [RestaurantController::class, 'destroy']);
 
-
     // Items CRUD
     Route::get('/items', [ItemController::class, 'index']);
     Route::get('/items/{id}', [ItemController::class, 'show']);
+    Route::post('/items', [ItemController::class, 'store']);
     Route::post('/items/{id}/update', [ItemController::class, 'update']);
     Route::delete('/items/{id}', [ItemController::class, 'destroy']);
 

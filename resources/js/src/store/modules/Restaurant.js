@@ -1,43 +1,43 @@
+import axios from 'axios';
 
 const restaurantModule = {
 
     state: () => ({
         restaurants: [],
-        selectedRestaurant: null,
-      }),
-  mutations : {
-    SET_RESTAURANTS(state, restaurants) {
-      state.restaurants = restaurants;
-    },
-    SET_SELECTED_RESTAURANT(state, restaurant) {
-      state.selectedRestaurant = restaurant;
-    },
-  },
+    }),
 
-  actions : {
-    async fetchRestaurants({ commit }) {
-      try {
-        // Fetch restaurants from API
-        // Upon successful retrieval, commit mutation to update state
-        const restaurants = []; // Fetch restaurants from API
-        commit('SET_RESTAURANTS', restaurants);
-      } catch (error) {
-        // Handle error
-        console.error('Failed to fetch restaurants:', error.message);
-      }
-    },
-    selectRestaurant({ commit }, restaurantId) {
-      // Fetch restaurant details by ID from API
-      // Upon successful retrieval, commit mutation to update state
-      const restaurant = {}; // Fetch restaurant details by ID from API
-      commit('SET_SELECTED_RESTAURANT', restaurant);
-    },
-  },
+    mutations : {
 
-  getters : {
-    getRestaurants: state => state.restaurants,
-    getSelectedRestaurant: state => state.selectedRestaurant,
-  },
+        SET_RESTAURANTS(state, restaurants) {
+            state.restaurants = restaurants;
+        },
+    },
+
+    actions : {
+        async fetchAndSaveRestaurants({ commit }) {
+            try {
+                const authToken = localStorage.getItem('authToken');
+                const apiUrl = "/api/restaurants";
+                const response = await axios.get(apiUrl, {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                });
+                // Save fetched restaurants in the store
+                commit('SET_RESTAURANTS', response.data.data);
+                console.log("🚀 ~ fetchAndSaveRestaurants ~ response.data.data:", response.data.data)
+
+            } catch (error) {
+                console.error('Error fetching restaurants:', error);
+                throw error;
+            }
+        },
+    },
+
+    getters : {
+        getRestaurants: state => state.restaurants,
+        getSelectedRestaurant: state => state.selectedRestaurant,
+    },
 
 };
 
