@@ -58,7 +58,7 @@
             </li>
 
             <li class="sidebar-list-item">
-                <router-link to="/">
+                <router-link to="/restaurants/items">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
@@ -82,7 +82,7 @@
             </li>
 
             <li class="sidebar-list-item">
-                <router-link to="/">
+                <router-link to="/restaurants/items/addons">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"

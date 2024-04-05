@@ -1,8 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import RestaurantLayout from '../views/layouts/RestaurantLayout.vue';
 import List from '../views/restaurents/List.vue';
+
 import Add from '../views/restaurents/Add.vue';
 import Details from '../views/restaurents/Details.vue';
+
+import ItemsList from '../views/restaurents/ItemsList.vue';
+import AddonList from '../views/restaurents/AddonList.vue';
+
 import Login from '../views/auth/Login.vue';
 const routes = [
     {
@@ -25,6 +30,16 @@ const routes = [
           component: Details,
           props: true,
           name: 'restaurant-details'
+        },
+        {
+            path: 'restaurants/items',
+            component: ItemsList,
+            name: 'restaurant-items-list'
+        },
+        {
+            path: 'restaurants/items/addons',
+            component: AddonList,
+            name: 'restaurant-items-addons-list'
         }
       ]
     },

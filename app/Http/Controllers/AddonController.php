@@ -74,6 +74,8 @@ class AddonController extends Controller
         DB::beginTransaction();
         try {
             $id = $this->hashDecode($hashed_id);
+
+            \Log::debug($id);
             $addon = Addon::findOrFail($id);
             $addon->delete();
             DB::commit();

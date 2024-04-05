@@ -72,6 +72,10 @@ class ItemController extends Controller
         try {
             $id = $this->hashDecode($hashed_id);
             $item = Item::findOrFail($id);
+
+            // Delete all addons associated with the item
+            $item->addons()->delete();
+
             $item->delete();
             DB::commit();
             return $this->result(true, [], [], 'Item deleted successfully', 200);

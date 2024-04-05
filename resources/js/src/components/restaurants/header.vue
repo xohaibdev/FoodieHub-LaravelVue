@@ -1,7 +1,7 @@
 <template>
     <div class="app-content-header">
         <h1 class="app-content-headerText">{{ pageTitle }}</h1>
-        <button class="mode-switch" title="Switch Theme" v-if="showAddButton">
+        <button class="mode-switch" title="Switch Theme">
             <svg
                 class="moon"
                 fill="none"
@@ -17,15 +17,10 @@
                 <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
             </svg>
         </button>
-        <button
-            v-if="showAddButton"
-            class="app-content-headerButton"
-            @click="redirectToAddRestaurant"
-        >
-            Add Restaurant
-        </button>
+        <button class="app-content-headerButton">Add Restaurant</button>
     </div>
 </template>
+
 <script>
 export default {
     data() {
@@ -61,6 +56,12 @@ export default {
                     break;
                 case "add-restaurant":
                     this.pageTitle = "Add Restaurant";
+                    break;
+                case "restaurant-items-list":
+                    this.pageTitle = "Restaurant Items List";
+                    break;
+                case "restaurant-items-addons-list":
+                    this.pageTitle = "Restaurant Items Addons List";
                     break;
                 default:
                     this.pageTitle = "";

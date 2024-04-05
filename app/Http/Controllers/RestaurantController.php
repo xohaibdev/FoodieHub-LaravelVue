@@ -104,9 +104,22 @@ class RestaurantController extends Controller
     {
         DB::beginTransaction();
         try {
+            
             $id = $this->hashDecode($hashed_id);
             $restaurant = Restaurant::findOrFail($id);
+
+            //loop through the items and delete their addons
+            foreach ($restaurant->items as $item) {
+                $item->addons()->delete();
+            }
+
+            // Delete all items associated with the restaurant
+            $restaurant->items()->delete();
+
+            //Delete restaurant
             $restaurant->delete();
+
+
             DB::commit();
             return $this->result(true, [], [], 'Restaurant deleted successfully', 200);
         } catch (Exception $e) {
